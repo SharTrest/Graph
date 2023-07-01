@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Graph.Model;
 
 namespace Graph.ViewModel
 {
     public class MainWindowViewModel
     {
-        private Graph
+        private GraphModel _graph;
+        
+        public GraphModel Graph
+        {
+            get { return _graph; }
+            set { _graph = value; }
+        }
+
+
+
+
     }
 }

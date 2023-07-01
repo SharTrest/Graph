@@ -9,13 +9,8 @@ namespace Graph.Model
 {
     internal class ModularityDegree : IModularityDegree
     {
-        public AdjencyMatrix adjencyMatrix = new AdjencyMatrix();
+        public AdjencyMatrix adjencyMatrix;
         public Graph graph;
-        
-        public AdjencyMatrix MultiplyMatrix(AdjencyMatrix matrix, int t)
-        {
-            throw new NotImplementedException();
-        }
 
         public decimal MetricForAVertex(AdjencyMatrix matrix, int[] degrees)
         {

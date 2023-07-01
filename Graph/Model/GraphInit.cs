@@ -8,7 +8,7 @@ namespace Graph.Model
 {
     class GraphInit
     {
-        public Graph Initial(Graph graph)
+        public GraphModel Initial(GraphModel graph)
         {
 
             return graph;

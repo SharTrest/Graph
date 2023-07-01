@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Button Height="20" Grid.Column="0" Content="Рассчет" Width="100" VerticalAlignment="Top" Margin="0,30,0,0" HorizontalAlignment="Center"/>
     </Grid>
 </Window>
