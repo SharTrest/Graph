@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 namespace Graph.Model
 {
 
-    public class Graph
+    public class GraphModel
     {
         public List<Nodes> nodes;
+        public int vertexCount;
     }
 
     public class Nodes
     {
+        public int vertexId;
         public List<int> connections;
         public int degree;
     }       

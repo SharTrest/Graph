@@ -8,7 +8,7 @@ namespace Graph.Model.Interfaces
 {
     internal interface IModularityDegree
     {
-        public decimal MetricForAVertex(AdjencyMatrix matrix, int[] degrees);//значение "расстояния" для вершины
+        public decimal MetricForAVertex(AdjencyMatrix matrix);//значение "расстояния" для вершины
 
 
     }
