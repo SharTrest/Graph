@@ -25,7 +25,7 @@ namespace Graph.Model
                 graph = new GraphModel
                 {
                     nodes = new List<Nodes>(),
-                    vertexCount = 6
+                    vertexCount = 0
                 };
 
 
@@ -89,6 +89,7 @@ namespace Graph.Model
 
             }
             dbConnection.Close();
+            graph.vertexCount = graph.nodes.Count;
             return graph;
         }
         public List<int> InitGridIds(List<int> grids, OleDbConnection dbConnection)

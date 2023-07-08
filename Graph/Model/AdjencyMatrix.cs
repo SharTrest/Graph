@@ -5,6 +5,7 @@ namespace Graph.Model
     public class AdjencyMatrix
     {
         public double[,] matrix;
+        public int[] degree;
 
         public AdjencyMatrix(GraphModel graph) 
         {
@@ -16,6 +17,7 @@ namespace Graph.Model
 
 
             matrix = new double[nRows, nColums];
+            degree = new int[graph.vertexCount];
 
             foreach (var node in graph.nodes) 
             { 
@@ -23,6 +25,7 @@ namespace Graph.Model
                 {
                     matrix[node.vertexId - 1, con-1] = 1.0 / node.degree;
                 }
+                degree[node.vertexId - 1] = node.degree; 
             }
 
         }
@@ -31,7 +34,7 @@ namespace Graph.Model
         {
             var newMatrix = matrix;
             var result = new double[newMatrix.GetLength(0), newMatrix.GetLength(1)];
-            for (int s = 0; s < t; s++)
+            for (int s = 0; s < t-1; s++)
             { 
                 for (int i = 0; i < newMatrix.GetLength(0); i++)
                 {

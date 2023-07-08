@@ -11,6 +11,7 @@ namespace Graph.Model
     {
         public List<Nodes> nodes;
         public int vertexCount;
+        public double[] degrees;
     }
 
     public class Nodes

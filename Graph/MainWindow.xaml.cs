@@ -15,6 +15,7 @@ namespace Graph
     {
         private readonly string _connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\snetk\\OneDrive\\Документы\\GitHub\\12345\\Aviasales\\Graph\\Graph\\Data\\DesisionBD.accdb";
 
+        private ModularityDegree _degree;
         private GraphModel _graph;
         private GraphInit _graphInit;
         private List<int> _gridId;
@@ -31,7 +32,11 @@ namespace Graph
             graphs = new List<GraphModel>();
             OleDbConnection dbConnection = new OleDbConnection(_connectionstring);
             _graphInit = new GraphInit();
+            _degree = new ModularityDegree();
             _gridId = _graphInit.InitGridIds(_gridId, dbConnection);
+
+
+
 
             foreach (int id in _gridId)
             {
@@ -40,11 +45,11 @@ namespace Graph
             }
 
 
-            Stopwatch stopWatch = new Stopwatch();
-            var adjency = new AdjencyMatrix(graphs[3]);
+            foreach (GraphModel graph in graphs)
+                    graph.degrees = _degree.MetricForAVertex(graph);
+            
 
 
-            var tm = stopWatch.Elapsed;
 
             int summ = 0;
         }
