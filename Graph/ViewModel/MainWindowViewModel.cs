@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace Graph.ViewModel
 {
-    public class MainWindowViewModel:ViewModelBase
+    public class MainWindowViewModel:ViewModelBase// Инициализация данных, работа с окном
     {
 
         private readonly string _connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\..\\Data\\DesisionBD.accdb";
@@ -63,19 +63,21 @@ namespace Graph.ViewModel
 
         public MainWindowViewModel()
         {
+
             graphs = new List<GraphModel>();
             dbConnection = new OleDbConnection(_connectionstring);
             _graphInit = new GraphInit();
             _degree = new ModularityDegree();
-            _gridId = _graphInit.InitGridIds(_gridId, dbConnection);
+            _gridId = _graphInit.InitGridIds(_gridId, dbConnection); // создания списка с id графов
 
-
+            #region инициализация графов
             foreach (int id in _gridId)
             {
                 _graph = _graphInit.Initial(Graph, dbConnection, id);
                 graphs.Add(_graph);
                 _allCount += _graph.vertexCount;
             }
+            #endregion
 
             CalculationCommand = new RelayCommand(ExecutedCalculationCommand, CanExecuteCalculationCommand);
             SaveCommand = new RelayCommand(ExecutedSaveCommand,CanExecuteSaveCommand);
@@ -88,7 +90,7 @@ namespace Graph.ViewModel
             return false;
         }
 
-        private void ExecutedSaveCommand(object obj)
+        private void ExecutedSaveCommand(object obj) // сохранение данных в БД
         {
            foreach (var graph in graphs) {
            
@@ -121,7 +123,7 @@ namespace Graph.ViewModel
             return _graph != null;
         }
 
-        private void ExecutedCalculationCommand(object obj)
+        private void ExecutedCalculationCommand(object obj) // расчет расстояний между вершинами
         {
 
             foreach (GraphModel graph in graphs) 
@@ -130,7 +132,7 @@ namespace Graph.ViewModel
                 CalculateCouunt += graph.vertexCount;
             }
                 
-                MessageBox.Show($"Посчитано расстояние для {AllCount} вершин");
+                MessageBox.Show($"Посчитано расстояние для {CalculateCouunt} вершин");
 
 
         }

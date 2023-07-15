@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Graph.Model
 {
 
-    public class GraphModel
+    public class GraphModel// модель графа
     {
-        public List<Nodes> nodes;
-        public int vertexCount;
-        public double[] degrees;
-        public int grid;
+        public List<Nodes> nodes; // список узлов
+        public int vertexCount; // количество вершие
+        public double[] degrees; // массив значений модулярности вершин
+        public int grid; // id графа
     }
 
-    public class Nodes
+    public class Nodes// модель узла графа
     {
-        public int vertexId;
-        public List<int> connections;
-        public int degree;
+        public int vertexId; // номер вершины
+        public List<int> connections; // список связей с другими вершинами
+        public int degree; // степень вершины графа
     }       
 }

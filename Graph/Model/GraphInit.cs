@@ -6,16 +6,18 @@ namespace Graph.Model
 {
     class GraphInit
     {
-        public GraphModel Initial(GraphModel graph, OleDbConnection dbConnection, int id)
+        public GraphModel Initial(GraphModel graph, OleDbConnection dbConnection, int id)// инициализация графов
         {
             dbConnection.Open();
             string query = $"SELECT * FROM GrLink WHERE Grid = {id}";
             OleDbCommand oleDbCommand = new OleDbCommand(query,dbConnection);
             OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader();
+
             if (oleDbDataReader.HasRows == false)
             {
-                MessageBox.Show("Данные украли бобры");
+                MessageBox.Show("Не удалось присоединиться к БД");
             }
+
             else
             {
                 bool stop = false;
@@ -28,8 +30,8 @@ namespace Graph.Model
                 };
 
 
-                while (oleDbDataReader.Read()) 
-                { 
+                while (oleDbDataReader.Read()) // считывание данных
+                {
                     
                     int source = oleDbDataReader.GetInt32(1);
                     int destination = oleDbDataReader.GetInt32(2);
@@ -37,16 +39,16 @@ namespace Graph.Model
                     int newConnection = destination;
                     int newSource = source;
 
-                    if (graph.nodes.Count != 0)
+                    if (graph.nodes.Count != 0) // проверка на наличие вершины
                         foreach (var n in graph.nodes)
-                            if (n.vertexId == source )
+                            if (n.vertexId == source)// добавляем связь
                             {
                                 n.connections.Add(destination);
                                 isAdd = false;
                                 n.degree++;
                             }
 
-                    if (isAdd)
+                    if (isAdd)// если вершины нет, то создаем новую
                     {
                         var newNode = new Nodes
                         {
@@ -56,10 +58,12 @@ namespace Graph.Model
                         };
                         graph.nodes.Add(newNode);
                     }
+
                     isAdd = true;
-                    if (graph.nodes.Count != 0)
+
+                    if (graph.nodes.Count != 0) // // проверка на наличие вершины
                         foreach (var n in graph.nodes)
-                            if (n.vertexId == destination)
+                            if (n.vertexId == destination)// добавляем связь
                             {
                                 n.connections.Add(source);
                                 isAdd = false;
@@ -73,7 +77,7 @@ namespace Graph.Model
                                 newConnection = source;
                             }
 
-                    if (isAdd)
+                    if (isAdd) // если вершины нет, то создаем новую
                     {
                         var newNode = new Nodes
                         {
@@ -92,7 +96,7 @@ namespace Graph.Model
             graph.grid = id;
             return graph;
         }
-        public List<int> InitGridIds(List<int> grids, OleDbConnection dbConnection)
+        public List<int> InitGridIds(List<int> grids, OleDbConnection dbConnection)// создаем список с id графов
         {
             dbConnection.Open();
 

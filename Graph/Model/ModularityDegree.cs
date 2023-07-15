@@ -13,26 +13,24 @@ namespace Graph.Model
 
         public double[] MetricForAVertex(GraphModel graph)
         {
-            Random random = new Random();
             AdjencyMatrix adjencyMatrix = new AdjencyMatrix(graph);
+            int t = 2; // степень матрицы P
+            double r = 0; // модулярность вершины
+            double[] modularity = new double[graph.vertexCount]; // массив мудулярности вершин графа
 
+            adjencyMatrix.MultiplyMatrix(t); // расчет P^t
 
-            int t = random.Next(101) > 50 ? 2 : 5;
-            t = 2; 
-            double r = 0;
-            double[] modularity = new double[graph.vertexCount];
-
-            adjencyMatrix.MultiplyMatrix(t);
-
-            foreach (var node in graph.nodes)
+            #region расчет модулярности вершин графа
+            foreach (var node in graph.nodes) 
             {
                 r = 0;
                 foreach (var con in node.connections)
                 {
-                    r += DistanceBetweenVertices(adjencyMatrix, node.vertexId - 1, con - 1, graph.vertexCount);
+                    r += DistanceBetweenVertices(adjencyMatrix, node.vertexId - 1, con - 1, graph.vertexCount); // расчет расстояния между вершинами
                 }
                 modularity[node.vertexId - 1] = r;
             }
+            #endregion
 
             //for (int i = 0; i < graph.vertexCount; i++)
             //{
@@ -51,15 +49,17 @@ namespace Graph.Model
             var matrix = adjencyMatrix.matrix;
             var degree = adjencyMatrix.degree;
             double r = 0;
-            
 
-            for (int k = 0; k < n; k++)
+            #region расчет расстояния между вершинами
+            for (int k = 0; k < n; k++) 
             {
                 var d = matrix[i, k] - matrix[j, k];
                 r +=  d * d / degree[k];
             }
+            #endregion
 
             return Math.Sqrt(r);
+
         }
     }
 }
