@@ -32,15 +32,6 @@ namespace Graph.Model
             }
             #endregion
 
-            //for (int i = 0; i < graph.vertexCount; i++)
-            //{
-            //    for (int j = 0; j < graph.vertexCount; j++)
-            //        if (i != j)
-            //            r += DistanceBetweenVertices(adjencyMatrix, i, j, graph.vertexCount);
-            //    modularity[i] = r;
-            //    r = 0;
-            //}
-
             return modularity;
         }
 
