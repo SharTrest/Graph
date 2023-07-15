@@ -1,25 +1,20 @@
 ﻿using Graph.Command;
 using Graph.Model;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Data.OleDb;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Windows;
 using System.Windows.Input;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Threading;
 
 namespace Graph.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel:ViewModelBase
     {
 
-        private readonly string _connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\snetk\\OneDrive\\Документы\\GitHub\\12345\\Aviasales\\Graph\\Graph\\Data\\DesisionBD.accdb";
+        private readonly string _connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\..\\Data\\DesisionBD.accdb";
         private readonly OleDbConnection dbConnection;
         private ModularityDegree _degree;
         private GraphModel _graph;
@@ -28,6 +23,7 @@ namespace Graph.ViewModel
         private List<GraphModel> graphs;
         private int _allCount = 0;
         private int _saveCount = 0;
+        private int _count = 0;
 
         public GraphModel Graph
         {
@@ -45,6 +41,15 @@ namespace Graph.ViewModel
             }
         }
 
+        public int CalculateCouunt
+        {
+            get => _count;
+            set
+            {
+                _count = value;
+                OnPropertyChanged(nameof(CalculateCouunt));
+            }
+        }
 
         public int AllCount
         { 
@@ -52,7 +57,7 @@ namespace Graph.ViewModel
             set { _allCount = value;}
         }
 
-        public ICommand CalculationCommand { get; }
+        public ICommand CalculationCommand { get; set; }
         public ICommand SaveCommand { get; }
 
 
@@ -85,12 +90,13 @@ namespace Graph.ViewModel
 
         private void ExecutedSaveCommand(object obj)
         {
-            var graph = _graph;
-
+           foreach (var graph in graphs) {
+           
                 foreach (var node in graph.nodes)
                 {
                     using (OleDbConnection connection = new OleDbConnection(_connectionstring))
                     {
+
                         var cmd = new OleDbCommand();
                         cmd.Connection = connection;
                         cmd.Parameters.Clear();
@@ -103,12 +109,11 @@ namespace Graph.ViewModel
                         cmd.ExecuteNonQueryAsync();
                         connection.Close();
                     }
-                    Count++;
-   
-
+                    Count+=1;
+                }
             }
    
-            MessageBox.Show($"{Count.ToString()} записей сохранено");
+            MessageBox.Show($"{Count} записей сохранено");
         }
 
         private bool CanExecuteCalculationCommand(object arg)
@@ -118,17 +123,17 @@ namespace Graph.ViewModel
 
         private void ExecutedCalculationCommand(object obj)
         {
-            foreach (GraphModel graph in graphs)
+
+            foreach (GraphModel graph in graphs) 
             {
                 graph.degrees = _degree.MetricForAVertex(graph);
+                CalculateCouunt += graph.vertexCount;
             }
+                
+                MessageBox.Show($"Посчитано расстояние для {AllCount} вершин");
+
 
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+
     }
     }

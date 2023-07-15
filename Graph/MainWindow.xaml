@@ -39,18 +39,40 @@
         <Canvas     Grid.Column="1"
                     VerticalAlignment="Top">
 
-            <TextBlock Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                   Canvas.Top="30" 
+            <TextBlock Text="Постчитано вершин"
+                   Canvas.Top="30"
                    Canvas.Left="10"
                    />
-        <TextBlock Text=" из "
-                   Canvas.Top="30"
-                   Canvas.Left="30"
+
+            <TextBlock Text="{Binding CalculateCouunt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   Canvas.Top="30" 
+                   Canvas.Left="150"
                    />
-        <TextBlock Text="{Binding AllCount}"
+            <TextBlock Text=" из "
                    Canvas.Top="30"
-                   Canvas.Left="50"
-                   /> 
+                   Canvas.Left="216"
+                   />
+            <TextBlock Text="{Binding AllCount}"
+                   Canvas.Top="30"
+                   Canvas.Left="250"
+                   />
+            <TextBlock Text="Сохранено вершин"
+                   Canvas.Top="60"
+                   Canvas.Left="10"
+                   />
+            <TextBlock Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   Canvas.Top="60" 
+                   Canvas.Left="150"
+                   />
+            <TextBlock Text=" из "
+                   Canvas.Top="60"
+                   Canvas.Left="216"
+                   />
+            <TextBlock Text="{Binding AllCount}"
+                   Canvas.Top="60"
+                   Canvas.Left="250"
+                   />
+
         </Canvas>
     </Grid>
     
