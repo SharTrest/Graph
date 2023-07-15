@@ -12,7 +12,6 @@ namespace Graph.Model
             string query = $"SELECT * FROM GrLink WHERE Grid = {id}";
             OleDbCommand oleDbCommand = new OleDbCommand(query,dbConnection);
             OleDbDataReader oleDbDataReader = oleDbCommand.ExecuteReader();
-
             if (oleDbDataReader.HasRows == false)
             {
                 MessageBox.Show("Данные украли бобры");
@@ -90,6 +89,7 @@ namespace Graph.Model
             }
             dbConnection.Close();
             graph.vertexCount = graph.nodes.Count;
+            graph.grid = id;
             return graph;
         }
         public List<int> InitGridIds(List<int> grids, OleDbConnection dbConnection)

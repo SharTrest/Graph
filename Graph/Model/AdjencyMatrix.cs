@@ -32,6 +32,7 @@ namespace Graph.Model
 
         public void MultiplyMatrix(int t)
         {
+            t = 2;
             var newMatrix = matrix;
             var result = new double[newMatrix.GetLength(0), newMatrix.GetLength(1)];
             for (int s = 0; s < t-1; s++)
@@ -42,7 +43,8 @@ namespace Graph.Model
                     {
                         for (int k = 0; k < newMatrix.GetLength(1); k++)
                         {
-                            result[i, k] += newMatrix[i, k] * matrix[k, j];
+                            var r = newMatrix[i, k] * matrix[k, j];
+                            result[i, j] += r;
                         }
                     }
                 }
